@@ -1,1 +1,3 @@
-# web-api-ca-2026
+# Assignment 2 - Web API.
+
+Name: Mariia Popovych

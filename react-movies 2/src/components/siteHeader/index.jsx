@@ -70,13 +70,14 @@ const SiteHeader = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ 
-          backgroundColor: "rgba(18, 18, 18, 0.95)", 
-          backdropFilter: "blur(8px)", 
-          borderBottom: "1px solid rgba(255, 255, 255, 0.12)" 
+          backgroundColor: "#ffffff", // Чистий білий фон
+          color: "#3f51b5",           // Яскравий синій для тексту
+          boxShadow: "0px 2px 15px rgba(0,0,0,0.08)", // М'яка тінь
+          borderBottom: "none" 
         }}>
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 'bold', letterSpacing: '1px' }}>
-            TMDB Client
+          <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: '800', letterSpacing: '0.5px', color: "#3f51b5" }}>
+            MOVIE APP
           </Typography>
 
           <TextField
@@ -87,20 +88,19 @@ const SiteHeader = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleSearch}
             sx={{
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderRadius: "20px",
-              width: isMobile ? "100px" : "200px",
+              backgroundColor: "#f5f5f5", // Світло-сірий фон для поля
+              borderRadius: "12px",
+              width: isMobile ? "120px" : "250px",
               mr: 2,
               "& .MuiOutlinedInput-root": {
-                borderRadius: "20px",
-                color: "white",
-                "& fieldset": { border: "none" },
+                borderRadius: "12px",
+                "& fieldset": { border: "none" }, // Прибираємо рамку
               },
             }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: "rgba(255,255,255,0.5)" }} />
+                  <SearchIcon sx={{ color: "#3f51b5" }} />
                 </InputAdornment>
               ),
             }}
@@ -108,37 +108,27 @@ const SiteHeader = () => {
 
           {isMobile ? (
             <>
-              <IconButton onClick={handleMenu} color="inherit">
-                <MenuIcon />
-              </IconButton>
+              <IconButton onClick={handleMenu} color="inherit"><MenuIcon /></IconButton>
               <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
                 {menuOptions.map((opt) => (
-                  <MenuItem key={opt.label} onClick={() => handleMenuSelect(opt.path)}>
-                    {opt.label}
-                  </MenuItem>
+                  <MenuItem key={opt.label} onClick={() => handleMenuSelect(opt.path)}>{opt.label}</MenuItem>
                 ))}
               </Menu>
             </>
           ) : (
             <Stack direction="row" spacing={1}>
               {menuOptions.map((opt) => (
-                <Button key={opt.label} color="inherit" onClick={() => handleMenuSelect(opt.path)}>
+                <Button key={opt.label} sx={{ color: "#555", fontWeight: "600" }} onClick={() => handleMenuSelect(opt.path)}>
                   {opt.label}
                 </Button>
               ))}
               
-              {/* ЛОГІКА ДЛЯ КНОПОК LOGIN / LOGOUT */}
               {context.isAuthenticated ? (
-                <>
-                  <Typography variant="body2" sx={{ alignSelf: 'center', ml: 2, color: '#4fc3f7' }}>
-                    Hi, {context.userName}!
-                  </Typography>
-                  <Button color="error" variant="outlined" sx={{ ml: 1 }} onClick={() => context.signout()}>
-                    Sign Out
-                  </Button>
-                </>
+                <Button color="error" variant="contained" disableElevation sx={{ ml: 1, borderRadius: "8px" }} onClick={() => context.signout()}>
+                  Sign Out
+                </Button>
               ) : (
-                <Button color="primary" variant="contained" sx={{ ml: 1 }} onClick={() => navigate("/login")}>
+                <Button variant="contained" sx={{ ml: 1, backgroundColor: "#3f51b5", borderRadius: "8px" }} onClick={() => navigate("/login")}>
                   Login
                 </Button>
               )}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/authContext";
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 
 const StartPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -15,37 +15,37 @@ const StartPage = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <Box 
-      sx={{ 
+    <Box sx={{ 
         display: "flex", 
         flexDirection: "column", 
         alignItems: "center", 
-        mt: 5 
+        justifyContent: "center",
+        minHeight: "70vh", 
+        textAlign: "center",
+        backgroundColor: "#ffffff" 
       }}
     >
-
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          width: "80%", 
-          backgroundColor: "#757575", 
-          color: "white", 
-          textAlign: "center", 
-          py: 2, 
-          mb: 3 
-        }}
-      >
-        <Typography variant="h3" component="h1" sx={{ fontWeight: "bold" }}>
-          Tasky
-        </Typography>
-      </Paper>
-
-      <Typography variant="h6" sx={{ mb: 1 }}>
-        Welcome to Movie App! View your <Link to="/profile">Profile</Link>.
+      <Typography variant="h2" component="h1" sx={{ fontWeight: "900", color: "#3f51b5", mb: 2 }}>
+        Movie App
       </Typography>
 
-      <Typography variant="body1">
-        <Link to="/login">Login</Link> or <Link to="/signup">Signup</Link> to manage your movie collection!
+      <Typography variant="h5" sx={{ mb: 3, color: "#666", maxWidth: "600px" }}>
+        Your ultimate destination for cinema exploration. 
+        View your <Link to="/profile" style={{ color: "#3f51b5", fontWeight: "bold", textDecoration: 'none' }}>Profile</Link>.
+      </Typography>
+
+      <Typography variant="body1" sx={{ color: "#888" }}>
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+           <Button variant="contained" sx={{ backgroundColor: "#3f51b5", mr: 2, borderRadius: "8px" }}>
+             Login
+           </Button>
+        </Link>
+        or
+        <Link to="/signup" style={{ textDecoration: 'none' }}>
+           <Button variant="outlined" sx={{ color: "#3f51b5", borderColor: "#3f51b5", ml: 2, borderRadius: "8px" }}>
+             Signup
+           </Button>
+        </Link>
       </Typography>
     </Box>
   );

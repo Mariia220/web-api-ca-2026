@@ -1,3 +1,5 @@
+import { Box, Typography, Button } from "@mui/material";
+
 import { useNavigate } from "react-router";
 
 const ProfilePage = () => {

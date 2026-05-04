@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -15,10 +15,12 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
+import { AuthContext } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = () => {
+  const context = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -29,13 +31,25 @@ const SiteHeader = () => {
 
 
   const menuOptions = [
-    { label: "Home", path: "/" },
+    { label: "Profile", path: "/profile"},
+  ];
+
+  if (context.isAuthenticated) {
+    menuOptions.push(
+    { label: "Home", path: "/home" },
     { label: "Top Rated", path: "/movies/toprated" },
     { label: "Trending Today", path: "/movies/trending" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Watch Later", path: "/movies/watchlater" },
-  ];
+    );
+    } else {
+    menuOptions.push(
+      { label: "Start Page", path: "/"},
+      { label: "Login", path: "/login" },
+      { label: "Sign Up", path: "/signup" },
+    );
+  }
 
   const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
@@ -64,9 +78,7 @@ const SiteHeader = () => {
           <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 'bold', letterSpacing: '1px' }}>
             TMDB Client
           </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1, fontStyle: 'italic', opacity: 0.7 }}>
-            All you ever wanted to know about Movies!
-          </Typography>
+
           <TextField
             variant="outlined"
             size="small"
@@ -77,33 +89,29 @@ const SiteHeader = () => {
             sx={{
               backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderRadius: "20px",
-              width: isMobile ? "120px" : "250px",
+              width: isMobile ? "100px" : "200px",
               mr: 2,
               "& .MuiOutlinedInput-root": {
                 borderRadius: "20px",
                 color: "white",
                 "& fieldset": { border: "none" },
               },
-              "& .MuiInputBase-input::placeholder": { color: "rgba(255,255,255,0.5)" }
             }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon sx={{ color: "rgba(255,255,255,0.5)" }} />
                 </InputAdornment>
-),
+              ),
             }}
           />
-            {isMobile ? (
-              <>
-                <IconButton onClick={handleMenu} color="inherit">
+
+          {isMobile ? (
+            <>
+              <IconButton onClick={handleMenu} color="inherit">
                 <MenuIcon />
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setAnchorEl(null)}
-              >
+              <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
                 {menuOptions.map((opt) => (
                   <MenuItem key={opt.label} onClick={() => handleMenuSelect(opt.path)}>
                     {opt.label}
@@ -118,6 +126,22 @@ const SiteHeader = () => {
                   {opt.label}
                 </Button>
               ))}
+              
+              {/* ЛОГІКА ДЛЯ КНОПОК LOGIN / LOGOUT */}
+              {context.isAuthenticated ? (
+                <>
+                  <Typography variant="body2" sx={{ alignSelf: 'center', ml: 2, color: '#4fc3f7' }}>
+                    Hi, {context.userName}!
+                  </Typography>
+                  <Button color="error" variant="outlined" sx={{ ml: 1 }} onClick={() => context.signout()}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button color="primary" variant="contained" sx={{ ml: 1 }} onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+              )}
             </Stack>
           )}
         </Toolbar>

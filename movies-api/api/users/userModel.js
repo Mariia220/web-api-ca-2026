@@ -4,9 +4,15 @@ import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 
+const PlaylistSchema = new Schema({
+  name: { type: String, required: true },
+  movies: [{ type: Number }] 
+});
+
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true},
-  password: {type: String, required: true }
+  password: {type: String, required: true },
+  playlists: [PlaylistSchema]
 });
 
 UserSchema.methods.comparePassword = async function (passw) { 

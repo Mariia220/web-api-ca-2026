@@ -231,3 +231,34 @@ export const signup = async (username, password) => {
     });
     return response.json();
 };
+
+export const createPlaylist = (username, listName) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ listName })
+  }).then(res => res.json());
+};
+
+export const addMovieToPlaylist = (username, playlistId, movieId) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists/${playlistId}/movies`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ movieId })
+  }).then(res => res.json());
+};
+
+export const getUserPlaylists = (username) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists`)
+    .then(res => res.json());
+};
+
+export const deletePlaylist = (username, playlistId) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists/${playlistId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  }).then(res => {
+    if (!res.ok) throw new Error("Failed to delete playlist");
+    return res.json();
+  });
+};

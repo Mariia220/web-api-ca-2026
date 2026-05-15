@@ -124,3 +124,28 @@ export const getActorMovieCredits = async (id) => {
     );
     return handleTMDBError(response);
 };
+
+export const addMovieToPlaylist = (username, playlistId, movieId) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists/${playlistId}/movies`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ movieId: movieId }) 
+  }).then(res => {
+    if (!res.ok) throw new Error("Failed to add movie");
+    return res.json();
+  });
+};
+
+export const deletePlaylist = (username, playlistId) => {
+  return fetch(`http://localhost:8080/api/users/${username}/playlists/${playlistId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }).then(res => {
+    if (!res.ok) throw new Error("Failed to delete playlist");
+    return res.json();
+  });
+};

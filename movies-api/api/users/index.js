@@ -32,6 +32,58 @@ router.post('/', asyncHandler(async (req, res) => {
     }
 }));
 
+router.post('/:username/playlists', asyncHandler(async (req, res) => {
+    const { listName } = req.body;
+    const username = req.params.username;
+    const user = await User.findByUserName(username);
+    
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.playlists.push({ name: listName, movies: [] });
+    await user.save();
+    
+    res.status(201).json({ message: "Playlist created successfully" });
+}));
+
+
+router.post('/:username/playlists/:playlistId/movies', asyncHandler(async (req, res) => {
+    const { movieId } = req.body;
+    const user = await User.findByUserName(req.params.username);
+    
+    
+    const playlist = user.playlists.id(req.params.playlistId);
+    
+    if (playlist) {
+        if (!playlist.movies.includes(movieId)) {
+            playlist.movies.push(movieId);
+            await user.save();
+        }
+        res.status(200).json(playlist);
+    } else {
+        res.status(404).json({ message: "Playlist not found" });
+    }
+}));
+
+
+router.get('/:username/playlists', asyncHandler(async (req, res) => {
+    const user = await User.findByUserName(req.params.username);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user.playlists || []);
+}));
+
+router.delete('/:username/playlists/:playlistId', asyncHandler(async (req, res) => {
+    const { username, playlistId } = req.params;
+    const user = await User.findByUserName(username);
+
+    if (user) {
+        user.playlists.id(playlistId).deleteOne();
+        await user.save();
+        res.status(200).json({ message: "Playlist deleted successfully" });
+    } else {
+        res.status(404).json({ message: "User not found" });
+    }
+}));
+
 // ... Code as before
 
 

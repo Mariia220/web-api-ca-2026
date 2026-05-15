@@ -1,6 +1,6 @@
 export const getMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    'http://localhost:8080/api/movies'
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -71,8 +71,8 @@ export const getMovie = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    ).then( (response) => {
+      `http://localhost:8080/api/movies/${id}/reviews`
+    ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
@@ -104,7 +104,7 @@ export const getActor = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+    `http://localhost:8080/api/actors/${id}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
@@ -120,7 +120,7 @@ export const getActorDetails = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+    `http://localhost:8080/api/actors/${id}/details`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
@@ -136,7 +136,7 @@ export const getMovieCredits = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+    `http://localhost:8080/api/movies/${id}/credits`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
@@ -151,8 +151,8 @@ export const getMovieCredits = ({ queryKey }) => {
 export const getActorMovieCredits = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
-  return fetch(
-    `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+  return fetch( 
+    `http://localhost:8080/api/movies/actor/${id}/credits`
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to fetch movie credits");
@@ -166,7 +166,7 @@ export const getMoviesByGenre = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/genre/${id}/movies?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+    `http://localhost:8080/api/movies/genre/${id}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to fetch movies by genre");
@@ -179,7 +179,7 @@ export const getSearchMovies = ({ queryKey }) => {
   const [, queryPart] = queryKey;
   const { query } = queryPart;
   return fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+   `http://localhost:8080/api/movies/search?query=${query}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to fetch search results");
@@ -190,7 +190,7 @@ export const getSearchMovies = ({ queryKey }) => {
 
 export const getTopRatedMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+   'http://localhost:8080/api/movies/toprated'
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to fetch top rated movies");
@@ -201,7 +201,7 @@ export const getTopRatedMovies = () => {
 
 export const getTrendingMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_KEY}`
+   'http://localhost:8080/api/movies/trending'
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Failed to fetch trending movies");

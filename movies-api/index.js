@@ -6,6 +6,7 @@ import express from 'express';
 import usersRouter from './api/users';
 import authenticate from './authenticate';
 import moviesRouter from './api/movies';  
+import actorsRouter from './api/actors';
 
 
 dotenv.config();
@@ -37,6 +38,9 @@ app.use('/api/users', usersRouter);
 
 // Movies router
 app.use('/api/movies', moviesRouter);
+
+// Actors router
+app.use('/api/actors', actorsRouter);
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);

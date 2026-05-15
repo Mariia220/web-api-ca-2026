@@ -1,14 +1,43 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import { getMovies } from '../tmdb-api'; 
-
+import { getMovies, getUpcomingMovies, getGenres, getMovieImages, getMovie } from '../tmdb-api'; 
 
 const router = express.Router();
 
-// movie routes to be added
+
 router.get('/discover', asyncHandler(async (req, res) => {
     const discoverMovies = await getMovies();
     res.status(200).json(discoverMovies);
+}));
+
+
+router.get('/upcoming', asyncHandler(async (req, res) => {
+    const upcoming = await getUpcomingMovies();
+    res.status(200).json(upcoming);
+}));
+
+
+router.get('/genres', asyncHandler(async (req, res) => {
+    const genres = await getGenres();
+    res.status(200).json(genres);
+}));
+
+
+router.get('/:id', asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.id);
+    const movie = await getMovie(id);
+    if (movie) {
+        res.status(200).json(movie);
+    } else {
+        res.status(404).json({ message: 'Movie not found', status_code: 404 });
+    }
+}));
+
+
+router.get('/:id/images', asyncHandler(async (req, res) => {
+    const id = parseInt(req.params.id);
+    const images = await getMovieImages(id);
+    res.status(200).json(images);
 }));
 
 export default router;

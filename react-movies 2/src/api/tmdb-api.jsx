@@ -15,9 +15,11 @@ export const getMovies = () => {
 };
 
 
-export const getMovie = () => {
+export const getMovie = ({ queryKey }) => {
+  const [, idPart] = queryKey;
+  const { id } = idPart;
   return fetch(
-    `http://localhost:8080/api/movies/discover`
+    `http://localhost:8080/api/movies/${id}`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {

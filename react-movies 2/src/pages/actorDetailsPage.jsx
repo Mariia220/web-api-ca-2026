@@ -65,31 +65,61 @@ const ActorDetailsPage = () => {
             </Paper>
 
             <Typography variant="h5" component="h3" gutterBottom sx={{ mt: 4, color: 'secondary.main', fontWeight: 'bold' }}>
-              Films with {actor.name}
+  Films with {actor.name}
+</Typography>
+
+<Grid container spacing={3} sx={{ mt: 1 }}> {/* spacing додає відступи між картками */}
+  {credits.cast && credits.cast.slice(0, 12).map((m) => (
+    <Grid item xs={6} sm={4} md={1} key={m.id}> {/* md={2} зробить 6 фото в ряд, md={2.4} - 5 фото */}
+      <Link to={`/movies/${m.id}`} style={{ textDecoration: 'none' }}>
+        <Paper 
+          elevation={2} 
+          sx={{ 
+            p: 1, 
+            textAlign: 'center', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'space-between',
+            height: '100%', // Однаковий розмір усіх карток у ряду
+            transition: '0.3s',
+            '&:hover': { transform: 'translateY(-5px)', boxShadow: 6 } // Ефект підстрибування вгору
+          }}
+        >
+          <img
+            src={m.poster_path 
+              ? `https://image.tmdb.org/t/p/w200${m.poster_path}` 
+              : "https://via.placeholder.com/200x300?text=No+Poster"}
+            alt={m.title}
+            style={{ 
+              width: '100%', 
+              borderRadius: '4px', 
+              aspectRatio: '2/3', // Масштабує фото правильно
+              objectFit: 'cover' 
+            }}
+          />
+          
+          <Box sx={{ mt: 1 }}>
+            <Typography 
+              variant="caption" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: 'text.primary', 
+                lineHeight: 1.1,
+                display: 'block', // Щоб назва була окремим рядком
+                minHeight: '2.4em' // Резервує місце під 2 рядки тексту
+              }}
+            >
+              {m.title}
             </Typography>
-            <Paper elevation={1} sx={{ p: 2, borderRadius: 2}}>
-              <Stack direction="row" flexWrap="wrap" gap={1.5}>
-                {credits.cast && credits.cast.slice(0, 12).map((m) => (
-                  <Link key={m.id} to={`/movies/${m.id}`} style={{ textDecoration: 'none' }}>
-                    <Chip 
-                      label={m.title} 
-                      variant="outlined" 
-                      clickable 
-                      color="primary"
-                     sx={{
-                        m: 0.5,
-                        borderRadius: '16px',
-                        '&:hover': {
-                          backgroundColor: 'secondary.light',
-                          color: 'secondary.contrastText',
-                          transition: '0.3s'
-                        }
-                      }}
-                    />
-                  </Link>
-                ))}
-              </Stack>
-            </Paper>
+            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem', display: 'block' }}>
+              {m.character ? `as ${m.character}` : ''}
+            </Typography>
+          </Box>
+        </Paper>
+      </Link>
+    </Grid>
+  ))}
+</Grid>
           </Grid>
         </Grid>
       ) : (

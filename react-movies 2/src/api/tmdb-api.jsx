@@ -37,15 +37,11 @@ export const getMovie = ({ queryKey }) => {
 
   export const getGenres = () => {
     return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        import.meta.env.VITE_TMDB_KEY +
-        "&language=en-US"
-    ).then( (response) => {
+      `http://localhost:8080/api/movies/genres`
+    ).then((response) => {
       if (!response.ok) {
-        return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
-        });
-      }
+        }
       return response.json();
     })
     .catch((error) => {
@@ -58,13 +54,11 @@ export const getMovie = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    ).then( (response) => {
+     `http://localhost:8080/api/movies/${id}/images`
+    ).then((response) => {
       if (!response.ok) {
-        return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
-        });
-      }
+        }
       return response.json();
     })
     .catch((error) => {

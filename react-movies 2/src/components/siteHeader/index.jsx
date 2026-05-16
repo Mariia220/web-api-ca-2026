@@ -71,9 +71,9 @@ const SiteHeader = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ 
-          backgroundColor: "#ffffff", // Чистий білий фон
-          color: "#3f51b5",           // Яскравий синій для тексту
-          boxShadow: "0px 2px 15px rgba(0,0,0,0.08)", // М'яка тінь
+          backgroundColor: "#ffffff", 
+          color: "#3f51b5",           
+          boxShadow: "0px 2px 15px rgba(0,0,0,0.08)", 
           borderBottom: "none" 
         }}>
         <Toolbar>
@@ -89,13 +89,13 @@ const SiteHeader = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleSearch}
             sx={{
-              backgroundColor: "#f5f5f5", // Світло-сірий фон для поля
+              backgroundColor: "#f5f5f5", 
               borderRadius: "12px",
               width: isMobile ? "120px" : "250px",
               mr: 2,
               "& .MuiOutlinedInput-root": {
                 borderRadius: "12px",
-                "& fieldset": { border: "none" }, // Прибираємо рамку
+                "& fieldset": { border: "none" }, 
               },
             }}
             InputProps={{
@@ -125,7 +125,7 @@ const SiteHeader = () => {
               ))}
               
               {context.isAuthenticated ? (
-                <Button color="error" variant="contained" disableElevation sx={{ ml: 1, borderRadius: "8px" }} onClick={() => context.signout()}>
+                <Button variant="contained" disableElevation sx={{ ml: 1, backgroundColor: "#3f51b5", borderRadius: "8px", "&:hover": { backgroundColor: "#2f3fa2" } }} onClick={() => context.signout()}>
                   Sign Out
                 </Button>
               ) : (

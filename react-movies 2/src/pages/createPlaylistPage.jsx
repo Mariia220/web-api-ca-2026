@@ -55,8 +55,8 @@ const CreatePlaylistPage = () => {
   };
 
   return (
-    <div style={{ padding: "20px", color: "white" }}>
-      <h1>Create Custom Playlist</h1>
+    <div style={{ padding: "20px", color: "#333" }}>
+      <h1 style={{ color: "#3f51b5", fontWeight: "800" }}>Create Custom Playlist</h1>
       <div style={{ marginBottom: "30px" }}>
         <input 
           type="text" 
@@ -66,32 +66,36 @@ const CreatePlaylistPage = () => {
           style={{ 
             padding: "10px", 
             width: "300px", 
-            borderRadius: "4px", 
-            border: "1px solid #444",
-            backgroundColor: "#2c2c2c",
-            color: "white"
+            borderRadius: "12px", 
+            border: "1px solid #ddd",
+            backgroundColor: "#f5f5f5",
+            color: "#333",
+            outline: "none"
           }}
         />
         <button 
           onClick={handleCreate}
           style={{ 
-            padding: "10px 20px", 
+            padding: "10px 24px", 
             marginLeft: "10px", 
             cursor: "pointer", 
-            backgroundColor: "#e91e63", 
+            backgroundColor: "#3f51b5", 
             color: "white", 
             border: "none", 
-            borderRadius: "4px",
-            fontWeight: "bold"
+            borderRadius: "12px",
+            fontWeight: "bold",
+            transition: "background-color 0.2s"
           }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#2f3fa2"}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#3f51b5"}
         >
           Create
         </button>
       </div>
 
-      <hr style={{ borderColor: "#444" }} />
+      <hr style={{ borderColor: "#eee" }} />
 
-      <h2 style={{ marginTop: "20px" }}>My Playlists</h2>
+      <h2 style={{ marginTop: "20px", color: "#333" }}>My Playlists</h2>
       <div style={{ 
         display: "grid", 
         gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", 
@@ -101,37 +105,40 @@ const CreatePlaylistPage = () => {
         {playlists.length > 0 ? (
           playlists.map((list) => (
             <div key={list._id} style={{ 
-              padding: "15px", 
+              padding: "20px", 
               backgroundColor: "#1e1e1e", 
-              borderRadius: "8px", 
-              border: "1px solid #444",
-              position: "relative" 
+              borderRadius: "12px", 
+              border: "none",
+              position: "relative",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
             }}>
               
-             
               <button 
                 onClick={() => handleDelete(list._id)}
                 style={{
                   position: "absolute",
-                  top: "10px",
-                  right: "10px",
+                  top: "12px",
+                  right: "12px",
                   background: "transparent",
                   border: "none",
-                  color: "#ff4d4d",
+                  color: "#888",
                   cursor: "pointer",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold"
+                  fontSize: "1.1rem",
+                  fontWeight: "bold",
+                  transition: "color 0.2s"
                 }}
+                onMouseOver={(e) => e.currentTarget.style.color = "#ff4d4d"}
+                onMouseOut={(e) => e.currentTarget.style.color = "#888"}
               >
                 ✕
               </button>
             
               <Link to={`/playlists/${list._id}`} style={{ textDecoration: 'none' }}>
-                <h3 style={{ margin: "0 0 10px 0", color: "#e91e63", paddingRight: "25px" }}>
+                <h3 style={{ margin: "0 0 10px 0", color: "#3f51b5", paddingRight: "25px", fontWeight: "700" }}>
                   {list.name} →
                 </h3>
               </Link>
-              <p style={{ fontSize: "0.9rem", color: "#bbb" }}>
+              <p style={{ fontSize: "0.9rem", color: "#bbb", margin: 0 }}>
                 Movies count: {list.movies?.length || 0}
               </p>
             </div>

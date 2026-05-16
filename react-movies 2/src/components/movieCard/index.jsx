@@ -46,7 +46,7 @@ export default function MovieCard({ movie, action }) {
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#1e1e1e", color: "white", borderRadius: "12px" }}>
       <CardHeader
-        avatar={isFavorite ? <Avatar sx={{ backgroundColor: '#e91e63' }}><FavoriteIcon /></Avatar> : null}
+        avatar={isFavorite ? <Avatar sx={{ backgroundColor: '#3f51b5' }}><FavoriteIcon /></Avatar> : null}
         title={<Typography variant="h6" sx={{ fontSize: '1rem', color: 'white' }}>{movie.title}</Typography>}
       />
       <CardMedia
@@ -80,7 +80,7 @@ export default function MovieCard({ movie, action }) {
               variant="contained" 
               size="small" 
               onClick={handleAddClick} 
-              sx={{ mt: 1, backgroundColor: "#e91e63", "&:hover": { backgroundColor: "#c2185b" } }}
+              sx={{ mt: 1, backgroundColor: "#3f51b5", "&:hover": { backgroundColor: "#2f3fa2" } }}
             >
               Add to Playlist
             </Button>
@@ -90,7 +90,7 @@ export default function MovieCard({ movie, action }) {
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
         {action(movie)}
         <Link to={`/movies/${movie.id}`}>
-          <Button variant="contained" size="small" sx={{ backgroundColor: "#3f51b5" }}>More Info</Button>
+          <Button variant="outlined" size="small" sx={{ color: "white", borderColor: "rgba(255,255,255,0.3)", "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" } }}>More Info</Button>
         </Link>
       </CardActions>
     </Card>

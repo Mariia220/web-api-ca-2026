@@ -13,7 +13,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import img from '../../images/film-poster-placeholder.png';
 
 export default function MovieCard({ movie, action }) {
-  const { favorites } = useContext(MoviesContext);
+  const { favorites, addToHistory } = useContext(MoviesContext);
   const { userName, isAuthenticated } = useContext(AuthContext);
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
@@ -90,7 +90,7 @@ export default function MovieCard({ movie, action }) {
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
         {action(movie)}
         <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="small" sx={{ color: "white", borderColor: "rgba(255,255,255,0.3)", "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" } }}>More Info</Button>
+          <Button variant="outlined" size="small" onClick={() => addToHistory(movie)} sx={{ color: "white", borderColor: "rgba(255,255,255,0.3)", "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.1)" } }}>More Info</Button>
         </Link>
       </CardActions>
     </Card>

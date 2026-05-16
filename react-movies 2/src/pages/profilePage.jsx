@@ -5,19 +5,16 @@ import { Box, Typography, Button, Paper, Container, Grid, Avatar } from "@mui/ma
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MovieIcon from "@mui/icons-material/Movie";
 import { AuthContext } from "../contexts/authContext";
+import { MoviesContext } from "../contexts/moviesContext"; 
 import { createPlaylist, getUserPlaylists, deletePlaylist } from "../api/tmdb-api"; 
 
 const ProfilePage = () => {
     const { isAuthenticated, userName } = useContext(AuthContext);
+    const { watchHistory } = useContext(MoviesContext); 
     const navigate = useNavigate();
   
     const [playlistName, setPlaylistName] = useState("");
     const [playlists, setPlaylists] = useState([]);
-
-    const watchHistory = [
-        { id: 1, title: "The Punisher: One Last Kill", date: "Today" },
-        { id: 2, title: "Project Hail Mary", date: "Yesterday" }
-    ];
 
     const refreshPlaylists = async () => {
         if (userName) {
@@ -143,12 +140,16 @@ const ProfilePage = () => {
                         <Typography variant="h6" sx={{ fontWeight: "700", color: "#3f51b5", mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
                             <MovieIcon /> Watch History
                         </Typography>
-                        {watchHistory.map((history) => (
-                            <Box key={history.id} sx={{ pb: 1.5, mb: 1.5, borderBottom: "1px solid #eee", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Typography variant="body2" sx={{ fontWeight: "600", color: "#444" }}>{history.title}</Typography>
-                                <Typography variant="caption" sx={{ color: "#888" }}>{history.date}</Typography>
-                            </Box>
-                        ))}
+                        {watchHistory && watchHistory.length > 0 ? (
+                            watchHistory.map((history, index) => (
+                                <Box key={index} sx={{ pb: 1.5, mb: 1.5, borderBottom: "1px solid #eee", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                    <Typography variant="body2" sx={{ fontWeight: "600", color: "#444" }}>{history.title}</Typography>
+                                    <Typography variant="caption" sx={{ color: "#888" }}>{history.date}</Typography>
+                                </Box>
+                            ))
+                        ) : (
+                            <Typography variant="body2" sx={{ color: "#999", textAlign: "center", py: 2 }}>No movies viewed yet.</Typography>
+                        )}
                     </Paper>
                 </Grid>
 

@@ -42,7 +42,6 @@ const SiteHeader = () => {
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Watch Later", path: "/movies/watchlater" },
-    { label: "Create Playlist", path: "/playlists/create" }
     );
     } else {
     menuOptions.push(

@@ -3,10 +3,7 @@ import { Link } from "react-router";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { AuthContext } from "../../contexts/authContext";
 import { getUserPlaylists, addMovieToPlaylist } from "../../api/tmdb-api";
-import { 
-  Card, CardActions, CardContent, CardMedia, CardHeader, 
-  Button, Typography, Avatar, MenuItem, Select, FormControl, InputLabel 
-} from "@mui/material";
+import { Card, CardActions, CardContent, CardMedia, CardHeader, Button, Typography, Avatar, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";

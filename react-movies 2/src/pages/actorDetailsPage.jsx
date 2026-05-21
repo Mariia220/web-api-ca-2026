@@ -68,9 +68,9 @@ const ActorDetailsPage = () => {
   Films with {actor.name}
 </Typography>
 
-<Grid container spacing={3} sx={{ mt: 1 }}> {/* spacing додає відступи між картками */}
+<Grid container spacing={3} sx={{ mt: 1 }}> 
   {credits.cast && credits.cast.slice(0, 12).map((m) => (
-    <Grid item xs={6} sm={4} md={1} key={m.id}> {/* md={2} зробить 6 фото в ряд, md={2.4} - 5 фото */}
+    <Grid item xs={6} sm={4} md={1} key={m.id}> 
       <Link to={`/movies/${m.id}`} style={{ textDecoration: 'none' }}>
         <Paper 
           elevation={2} 
@@ -80,9 +80,9 @@ const ActorDetailsPage = () => {
             display: 'flex', 
             flexDirection: 'column', 
             justifyContent: 'space-between',
-            height: '100%', // Однаковий розмір усіх карток у ряду
+            height: '100%', 
             transition: '0.3s',
-            '&:hover': { transform: 'translateY(-5px)', boxShadow: 6 } // Ефект підстрибування вгору
+            '&:hover': { transform: 'translateY(-5px)', boxShadow: 6 } 
           }}
         >
           <img
@@ -93,7 +93,7 @@ const ActorDetailsPage = () => {
             style={{ 
               width: '100%', 
               borderRadius: '4px', 
-              aspectRatio: '2/3', // Масштабує фото правильно
+              aspectRatio: '2/3',
               objectFit: 'cover' 
             }}
           />
@@ -105,8 +105,8 @@ const ActorDetailsPage = () => {
                 fontWeight: 'bold', 
                 color: 'text.primary', 
                 lineHeight: 1.1,
-                display: 'block', // Щоб назва була окремим рядком
-                minHeight: '2.4em' // Резервує місце під 2 рядки тексту
+                display: 'block', 
+                minHeight: '2.4em' 
               }}
             >
               {m.title}
